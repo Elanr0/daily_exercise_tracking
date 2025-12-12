@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   @override 
   Widget build(BuildContext context) {
 
-  NoteModel note1 = NoteModel(title: "Morning Walk ", content: "07:00 - 07:30", createdAt: DateTime.now(), updatedAt: DateTime.now(), doingAt: DateTime.now());
+  NoteModel note1 = NoteModel(title: "Morning Walk ", content: "07:00 - 07:30 ", createdAt: DateTime.now(), updatedAt: DateTime.now(), doingAt: DateTime.now());
   NoteModel note2 = NoteModel(title: "Respond To Emails", content: "08:00 - 09:00", createdAt: DateTime(23), updatedAt: DateTime(2030), doingAt: DateTime(1024));
   NoteModel note3 = NoteModel(title: "Project Sync", content: "09:00 - 010:30", createdAt: DateTime(20), updatedAt: DateTime(2030), doingAt: DateTime(1024));
 

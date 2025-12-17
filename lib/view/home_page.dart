@@ -35,6 +35,26 @@ class _HomePageState extends State<HomePage> {
 
   List<NoteModel> notes = [];
   notes.addAll([note1, note2, note3]);
+
+     NoteModel afternoon1 = NoteModel(
+      title: "Lunch with Team",
+      content: "12:30 - 13:30",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      doingAt: DateTime.now(),
+    );
+
+    NoteModel afternoon2 = NoteModel(
+      title: "Design Session",
+      content: "14:00 - 16:00",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      doingAt: DateTime.now(),
+    );
+
+     List<NoteModel> afternoonNotes = [];
+  afternoonNotes.addAll([afternoon1, afternoon2]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -55,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {}, 
           child: const Icon(Icons.add), 
 ),
-body: Column(
+body: ListView(
   children: [
     Card(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -89,6 +109,35 @@ body: Column(
               ],
             ),
           ),
+      Card(
+        margin: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(padding: EdgeInsets.all(16),
+            child: Text("Afternoon",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
+              ),
+             ),
+            ),
+            ...afternoonNotes.map((note) {
+
+              final index = afternoonNotes.indexOf(note);
+              return Card(
+                margin: const EdgeInsets.symmetric( horizontal: 12, vertical: 6),
+                color: Colors.pink[100],
+                child: ListTile(
+                  leading: index == 0 ?
+                  const Icon(Icons.restaurant, color: Colors.deepPurpleAccent ,):
+                  const Icon(Icons.design_services, color: Colors.red),
+                  title: Text(note.title),
+                  subtitle: Text(note.content),
+                   ),
+                  );
+                }),
+              ],
+            ),
+          )
         ],
       ),
     );

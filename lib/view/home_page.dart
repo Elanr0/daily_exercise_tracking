@@ -9,26 +9,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isEveningVisible = false; 
  
-
   @override 
   Widget build(BuildContext context) {
 
-  NoteModel note1 = NoteModel(
+  NoteModel morning1 = NoteModel(
     title: "Morning Walk ", 
     content: "", 
     createdAt: DateTime.now(), 
     updatedAt: DateTime.now(), 
     doingAt: DateTime(2025, 12, 18, 7, 0));
 
-  NoteModel note2 = NoteModel(
+  NoteModel morning2 = NoteModel(
     title: "Respond To Emails", 
     content: "", 
     createdAt: DateTime(23), 
     updatedAt: DateTime(20), 
     doingAt: DateTime(2025, 12, 18, 8, 0));
 
-  NoteModel note3 = NoteModel(
+  NoteModel morning3 = NoteModel(
     title: "Project Sync", 
     content: "", 
     createdAt: DateTime(20), 
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     doingAt: DateTime(2025, 12, 18, 9, 0));
 
   List<NoteModel> notes = [];
-  notes.addAll([note1, note2, note3]);
+  notes.addAll([morning1, morning2, morning3]);
 
      NoteModel afternoon1 = NoteModel(
       title: "Lunch with Team",
@@ -78,7 +78,11 @@ class _HomePageState extends State<HomePage> {
 ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, 
         floatingActionButton: FloatingActionButton( 
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              _isEveningVisible = true;
+            });
+          },
           child: const Icon(Icons.add), 
 ),
 body: ListView(
@@ -110,7 +114,8 @@ body: ListView(
             title: Text(note.title),
             subtitle: Text(note.content),
             trailing: Text(
-              _formatTime(note.doingAt), style: const TextStyle(fontWeight: FontWeight.w700),
+              _formatTime(note.doingAt), 
+              style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
                     ),
                   );
@@ -141,10 +146,34 @@ body: ListView(
                   title: Text(note.title),
                   subtitle: Text(note.content),
                   trailing: Text(
-                    _formatTime(note.doingAt),style: const TextStyle(fontWeight: FontWeight.w700),),
+                    _formatTime(note.doingAt),
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
                    ),
                   );
                 }),
+              ],
+            ),
+          ), 
+          if (_isEveningVisible)
+          const SizedBox(height: 90),
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            color: Colors.blue[50],
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const[
+             Padding(
+                    padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+                    child: Text(
+                      "Evening",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                    ),
+                  ), 
+                  Padding(padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Text("No activities planned for the evening.", style: TextStyle(fontSize: 14),
+                  ),
+                )
               ],
             ),
           )
@@ -153,9 +182,8 @@ body: ListView(
     );
   }
   String _formatTime(DateTime dt) {
-    final h =dt.hour.toString().padLeft(2, '0');
+    final h = dt.hour.toString().padLeft(2, '0');
     final m = dt.minute.toString().padLeft(2, '0');
-    return "$h:m";
-
+    return "$h:$m";
   }
 } 

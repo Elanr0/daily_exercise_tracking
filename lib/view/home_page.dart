@@ -9,51 +9,56 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+ 
 
   @override 
   Widget build(BuildContext context) {
 
   NoteModel note1 = NoteModel(
-    title: "Morning Walk ", content: "07:00 - 07:30 ", 
+    title: "Morning Walk ", 
+    content: "", 
     createdAt: DateTime.now(), 
     updatedAt: DateTime.now(), 
-    doingAt: DateTime.now());
+    doingAt: DateTime(2025, 12, 18, 7, 0));
 
   NoteModel note2 = NoteModel(
     title: "Respond To Emails", 
-    content: "08:00 - 09:00", 
+    content: "", 
     createdAt: DateTime(23), 
     updatedAt: DateTime(20), 
-    doingAt: DateTime(10));
+    doingAt: DateTime(2025, 12, 18, 8, 0));
 
   NoteModel note3 = NoteModel(
     title: "Project Sync", 
-    content: "09:00 - 010:30", 
+    content: "", 
     createdAt: DateTime(20), 
     updatedAt: DateTime(23), 
-    doingAt: DateTime(10));
+    doingAt: DateTime(2025, 12, 18, 9, 0));
 
   List<NoteModel> notes = [];
   notes.addAll([note1, note2, note3]);
 
      NoteModel afternoon1 = NoteModel(
       title: "Lunch with Team",
-      content: "12:30 - 13:30",
+      content: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      doingAt: DateTime.now(),
+      doingAt: DateTime(2025, 12, 18, 12, 30),
     );
 
     NoteModel afternoon2 = NoteModel(
       title: "Design Session",
-      content: "14:00 - 16:00",
+      content: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      doingAt: DateTime.now(),
+      doingAt: DateTime(2025, 12, 18, 14, 0),
     );
 
      List<NoteModel> afternoonNotes = [];
   afternoonNotes.addAll([afternoon1, afternoon2]);
+
+  String dateText = 
+  "${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}";
 
     return Scaffold(
       appBar: AppBar(
@@ -61,18 +66,19 @@ class _HomePageState extends State<HomePage> {
         title: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
           const Text('Daily Exercise Tracking'),
-         Text('${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}',
+         Text(
+          dateText,
          style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w700)
           ),
        IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-    ]
-  )
+    ],
+  ),
 ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, 
         floatingActionButton: FloatingActionButton( 
-          onPressed: () {}, 
+          onPressed: () {},
           child: const Icon(Icons.add), 
 ),
 body: ListView(
@@ -94,7 +100,7 @@ body: ListView(
           final index = notes.indexOf(note);
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 6),
-            color: Colors.pink[100],
+            color: Colors.blue[50],
             child: ListTile(
             leading: index == 2 ?
                  const Icon(Icons.groups, color: Colors.green):
@@ -103,6 +109,9 @@ body: ListView(
                      const Icon(Icons.mail_lock_rounded, color: Colors.blue),
             title: Text(note.title),
             subtitle: Text(note.content),
+            trailing: Text(
+              _formatTime(note.doingAt), style: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
                     ),
                   );
                 }),
@@ -121,17 +130,18 @@ body: ListView(
              ),
             ),
             ...afternoonNotes.map((note) {
-
               final index = afternoonNotes.indexOf(note);
               return Card(
                 margin: const EdgeInsets.symmetric( horizontal: 12, vertical: 6),
-                color: Colors.pink[100],
+                color: Colors.blue[50],
                 child: ListTile(
                   leading: index == 0 ?
                   const Icon(Icons.restaurant, color: Colors.deepPurpleAccent ,):
                   const Icon(Icons.design_services, color: Colors.red),
                   title: Text(note.title),
                   subtitle: Text(note.content),
+                  trailing: Text(
+                    _formatTime(note.doingAt),style: const TextStyle(fontWeight: FontWeight.w700),),
                    ),
                   );
                 }),
@@ -141,5 +151,11 @@ body: ListView(
         ],
       ),
     );
+  }
+  String _formatTime(DateTime dt) {
+    final h =dt.hour.toString().padLeft(2, '0');
+    final m = dt.minute.toString().padLeft(2, '0');
+    return "$h:m";
+
   }
 } 

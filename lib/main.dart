@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Daily Exercise Tracking',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 232, 134, 219)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 235, 152, 192)),
       ),
       home: HomePage()
     );

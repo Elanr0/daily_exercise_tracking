@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/product/models/note_model.dart';
+import 'package:flutter_application_1/view/activity_details/activity_details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _isEveningVisible = false; 
  
   @override 
   Widget build(BuildContext context) {
@@ -80,7 +80,6 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton( 
           onPressed: () {
             setState(() {
-              _isEveningVisible = true;
             });
           },
           child: const Icon(Icons.add), 
@@ -89,7 +88,7 @@ body: ListView(
   children: [
     Card(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      color: Colors.pink[50],
+      color: Colors.pinkAccent[50],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children:[
@@ -117,6 +116,13 @@ body: ListView(
               _formatTime(note.doingAt), 
               style: const TextStyle(fontWeight: FontWeight.w700),
                       ),
+                      onTap: () {
+                        if (note.title.trim() == "Morning Walk") {              
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => ActivityDetailsPage(note: note),
+                          )
+                         );
+                        }
+                      },
                     ),
                   );
                 }),
@@ -129,7 +135,8 @@ body: ListView(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(padding: EdgeInsets.all(16),
-            child: Text("Afternoon",
+            child: Text(
+              "Afternoon",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,
               ),
              ),
@@ -155,11 +162,9 @@ body: ListView(
               ],
             ),
           ), 
-          if (_isEveningVisible)
-          const SizedBox(height: 90),
           Card(
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            color: Colors.blue[50],
+            color: Colors.pinkAccent[50],
             child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const[
@@ -171,7 +176,8 @@ body: ListView(
                     ),
                   ), 
                   Padding(padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: Text("No activities planned for the evening.", style: TextStyle(fontSize: 14),
+                  child: Text(
+                    "No activities planned for the evening.", style: TextStyle(fontSize: 14),
                   ),
                 )
               ],
@@ -186,4 +192,4 @@ body: ListView(
     final m = dt.minute.toString().padLeft(2, '0');
     return "$h:$m";
   }
-} 
+}

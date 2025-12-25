@@ -4,10 +4,10 @@ import 'package:flutter_application_1/product/models/note_model.dart';
 class ActivityDetailsPage extends StatelessWidget{
   final NoteModel note; 
 
-  const ActivityDetailsPage({
+const ActivityDetailsPage({
     super.key,   
     required this.note,                             
-  });
+});
 
   @override
   Widget build(BuildContext context) {
@@ -29,28 +29,64 @@ class ActivityDetailsPage extends StatelessWidget{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(note.title,
-          style: TextStyle(
-            fontSize: 22, 
-            fontWeight: FontWeight.w800,
+              Text(
+                note.title,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800,
             ),
           ),
+          const SizedBox(height: 18),
         ],
       ),
     ),
-         const SizedBox(height: 10),
           Container(              
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Color(0xFFE7F6EF),
-              borderRadius: BorderRadius.circular(999),  
-              ),
+            color: Color(0xFFE7F6EF),
+            borderRadius: BorderRadius.circular(999),  
+            ),
             child: Text("Fitness", 
             style: TextStyle(fontWeight: FontWeight.w700),
+              ), 
             ),
-          ),
-        ],
-       ),
+            const SizedBox(height: 18),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: Colors.yellow[100],
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: const[
+                      Icon(Icons.access_time),
+                      SizedBox(height: 10),
+                      Text("8:00 AM - 9:30 AM"),
+                      Spacer(),
+                      Text("1h 30m",
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  const Divider(),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: const [
+                      Icon(Icons.directions_walk),
+                      SizedBox(width: 10),
+                      Text("5.2km",
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+           const SizedBox(height: 16),
+          ],
+        ),
       ),
     );
   }

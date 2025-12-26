@@ -108,7 +108,7 @@ const ActivityDetailsPage({
             const SizedBox(height: 8),
             Card( shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(16),
               ),
-              color: Colors.grey[100],
+              color: Colors.deepPurple[100],
               elevation: 0,
               child: Text("her koşudan önce iyi bir egzersiz yapmaliyim", style: TextStyle(height: 2.0, fontWeight: FontWeight.w700),
               ),

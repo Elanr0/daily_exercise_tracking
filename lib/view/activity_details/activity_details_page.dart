@@ -13,7 +13,10 @@ class ActivityDetailsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.pink[100],
         title: const Text("Activity Details"),
-        actions: [TextButton(onPressed: () {}, child: const Text("Edit"))],
+        actions: [TextButton(onPressed: (
+          
+          ) {
+        }, child: const Text("Edit"))],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

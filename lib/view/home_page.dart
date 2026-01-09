@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     List<ActivityModel> activities = [];
     ActivityModel note = ActivityModel(
       title: "Morning Walk ",
-      content: "Koşu yapmak için parka git. Hava serin ve güneşli.",
+      content: "",
       category: "Fitness",
       startedAt: DateTime.now(),
       finishedAt: DateTime.now(),

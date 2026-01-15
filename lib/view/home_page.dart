@@ -11,55 +11,70 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    List<ActivityModel> activities = [];
-    ActivityModel note = ActivityModel(
-      title: "Morning Walk ",
-      content: "",
-      category: "Fitness",
-      startedAt: DateTime.now(),
-      finishedAt: DateTime.now(),
-    );
 
-    String dateText = "${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}";
+final List<ActivityModel> activities =[];
+
+@override
+Widget build(BuildContext context) {
+
+final dateText ="${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().year}";
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('My Activities'),
-        actions: [Text(dateText, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))],
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+        child: Center(
+          child: Text(dateText,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+        ),
       ),
+    )    
+  ],
+),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const AddNewActivity()));
+        onPressed: () async { 
+          final result = await 
+          Navigator.push(context, MaterialPageRoute(builder: (_) => const AddNewActivity()),
+          );
+          if (result == null) return;
+          setState((){
+            activities.add(result as ActivityModel);
+          });
         },
         child: const Icon(Icons.add),
       ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: activities.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            color: Colors.blue[50],
-            child: ListTile(
-              leading: index == 2
-                  ? const Icon(Icons.groups, color: Colors.green)
-                  : activities.indexOf(note) % 2 == 0
-                  ? const Icon(Icons.directions_walk, color: Colors.pink)
-                  : const Icon(Icons.mail_lock_rounded, color: Colors.blue),
-              title: Text(note.title),
-              subtitle: Text(note.content),
-              trailing: Text(_formatTime(note.startedAt), style: const TextStyle(fontWeight: FontWeight.w700)),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => ActivityDetailsPage(note: note)));
-              },
+      body: activities.isEmpty 
+      ? const Center(child: Text("no activity yet")) 
+      : ListView.builder(itemCount: activities.length,
+      itemBuilder: (context, index) {
+        final activity = activities[index];
+
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          color: Colors.blue[50],
+          child: ListTile(
+            leading: Icon(
+              activity.category == "Fitness" ? Icons.directions_walk : Icons.event_note,
+              color: activity.category == "Fitness" ? Colors.pink : Colors.blue,
             ),
-          );
-        },
-      ),
+            title: Text(activity.title),
+            subtitle: Text(activity.content),
+            trailing: Text(_formatTime(activity.startedAt),
+            style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => ActivityDetailsPage(note: activity),
+              ),
+              );
+            },
+          ),
+        );
+      },
+      )
     );
   }
 
@@ -68,4 +83,6 @@ class _HomePageState extends State<HomePage> {
     final m = dt.minute.toString().padLeft(2, '0');
     return "$h:$m";
   }
+
+
 }

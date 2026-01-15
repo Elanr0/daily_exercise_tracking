@@ -55,11 +55,10 @@ final dateText ="${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().
 
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-          color: Colors.blue[50],
+          color: Colors.blueGrey[50],
           child: ListTile(
             leading: Icon(
-              activity.category == "Fitness" ? Icons.directions_walk : Icons.event_note,
-              color: activity.category == "Fitness" ? Colors.pink : Colors.blue,
+              _categoryIcon(activity.category),
             ),
             title: Text(activity.title),
             subtitle: Text(activity.content),
@@ -84,5 +83,28 @@ final dateText ="${DateTime.now().day}.${DateTime.now().month}.${DateTime.now().
     return "$h:$m";
   }
 
-
+  IconData _categoryIcon(String category) {
+    switch(category) {
+      case "fitness":
+      return Icons.directions_run_outlined;
+      case "work":
+      return Icons.business_center_rounded;
+      case "study": 
+      return Icons.import_contacts_sharp;
+      case "shopping": 
+      return Icons.shopping_cart;
+      case "personal":
+      return Icons.person;
+      case "health":
+      return Icons.health_and_safety;
+      case "home":
+      return Icons.home;
+      case "finance":
+      return Icons.credit_card;
+      case "hobby":
+      return Icons.headphones_rounded;
+      default:
+      return Icons.abc;
+    }
+  }
 }

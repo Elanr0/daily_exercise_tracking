@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/product/models/activity_model.dart';
-import 'package:flutter_application_1/view/activity_details/activity_details_page.dart';
 
 class AddNewActivity extends StatefulWidget {
   const AddNewActivity({super.key});
